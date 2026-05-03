@@ -1,37 +1,36 @@
+# Laravel 13 — Dockerized Starter
 
-# Setup Docker Para Projetos Laravel (8, 9, 10, 11 ou 12)
-[Assine a Academy, e Seja VIP!](https://academy.especializati.com.br)
+A Laravel 13 starter project with Docker-based infrastructure, Laravel Breeze authentication, TailwindCSS, Alpine.js, and Redis.
 
-### Passo a passo
-Clone Repositório
+## Stack
+
+- **PHP** 8.3 + **Laravel** 13
+- **MySQL** 8.0
+- **Redis** (cache, sessions, queues)
+- **Nginx**
+- **Vite** + **TailwindCSS** 3 + **Alpine.js**
+- **Laravel Breeze** (authentication scaffolding)
+- **Pest** (testing)
+
+## Requirements
+
+- [Docker](https://docs.docker.com/get-docker/) + Docker Compose
+
+## Getting started
+
+**1. Clone the repository**
 ```sh
-git clone https://github.com/especializati/setup-docker-laravel.git
+git clone <your-repo-url>
+cd bec1
 ```
 
-Clone os Arquivos do Laravel
-```sh
-git clone https://github.com/laravel/laravel.git app-laravel
-```
-
-
-Copie os arquivos docker-compose.yml, Dockerfile e o diretório docker/ para o seu projeto
-```sh
-cp -rf setup-docker-laravel/* app-laravel/
-```
-```sh
-cd app-laravel/
-```
-
-
-Crie o Arquivo .env
+**2. Copy the environment file**
 ```sh
 cp .env.example .env
 ```
 
-
-Atualize **APENAS** essas variáveis de ambiente do arquivo .env (as demais devem permanecer como estão)
-```dosini
-APP_NAME="Especializa Ti"
+**3. Update the following variables in `.env`**
+```dotenv
 APP_URL=http://localhost:8989
 
 DB_CONNECTION=mysql
@@ -41,7 +40,7 @@ DB_DATABASE=laravel
 DB_USERNAME=root
 DB_PASSWORD=root
 
-CACHE_DRIVER=redis
+CACHE_STORE=redis
 QUEUE_CONNECTION=redis
 SESSION_DRIVER=redis
 
@@ -50,30 +49,50 @@ REDIS_PASSWORD=null
 REDIS_PORT=6379
 ```
 
-
-Suba os containers do projeto
+**4. Start the containers**
 ```sh
 docker compose up -d
 ```
 
-
-Acessar o container
+**5. Enter the app container and set up the project**
 ```sh
 docker compose exec app bash
+composer setup
 ```
 
+The `composer setup` script handles: installing PHP dependencies, generating the app key, running migrations, installing Node dependencies, and building frontend assets.
 
-Instalar as dependências do projeto
+**6. Access the app**
+
+| Service    | URL                          |
+|------------|------------------------------|
+| App        | http://localhost:8989        |
+| PHPMyAdmin | http://localhost:8080        |
+
+## Development
+
+Run all dev services (server, queue worker, log viewer, Vite) concurrently:
 ```sh
-composer install
+composer dev
 ```
 
+## Testing
 
-Gerar a key do projeto Laravel
 ```sh
-php artisan key:generate
+composer test
 ```
 
+## Project structure
 
-Acessar o projeto
-[http://localhost:8989](http://localhost:8989)
+```
+app/          # Application code (controllers, models)
+bootstrap/    # Framework bootstrap files
+config/       # Configuration files
+database/     # Migrations, factories, seeders
+docker/       # Nginx and PHP config for Docker
+public/       # Web entry point
+resources/    # Views, CSS, JS
+routes/       # Route definitions
+storage/      # Logs, cache, uploaded files
+tests/        # Feature and unit tests (Pest)
+```
