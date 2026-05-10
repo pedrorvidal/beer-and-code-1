@@ -16,7 +16,7 @@ class Transaction extends Model
         'status',
     ];
 
-    protected casts = [
+    protected $casts = [
         'status' => TransactionStatus::class,
     ];
 }
