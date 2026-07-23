@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class SignatureHistory extends Model
 {
     public $timestamps = false;
+
     protected $fillable = [
         'signature_id',
         'last_updated_at',
@@ -17,5 +18,11 @@ class SignatureHistory extends Model
 
     protected $casts = [
         'last_status' => SignatureStatus::class,
+
     ];
+
+    public function signature()
+    {
+        return $this->belongsTo(Signature::class);
+    }
 }
