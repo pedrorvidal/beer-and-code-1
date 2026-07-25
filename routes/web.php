@@ -1,6 +1,9 @@
 <?php
 
+use App\Enums\SignatureStatus;
 use App\Http\Controllers\ProfileController;
+use App\Models\Plan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,4 +20,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::get('/test', function () {
+    return view('test', [
+        'plans' => Plan::all(),
+        'signatureStatus' => SignatureStatus::cases(),
+    ]);
+});
+
+require __DIR__ . '/auth.php';
