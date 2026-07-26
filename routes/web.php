@@ -1,10 +1,8 @@
 <?php
 
-use App\Enums\SignatureStatus;
+use App\Http\Controllers\EmployeeAddressController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Plan;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,5 +20,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('employees', EmployeeController::class);
+Route::resource('employee.address', EmployeeAddressController::class);
 
 require __DIR__ . '/auth.php';
