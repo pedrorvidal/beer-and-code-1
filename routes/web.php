@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\SignatureStatus;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Plan;
 use Illuminate\Support\Facades\Auth;
@@ -20,11 +21,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/test', function () {
-    return view('test', [
-        'plans' => Plan::all(),
-        'signatureStatus' => SignatureStatus::cases(),
-    ]);
-});
+Route::resource('employees', EmployeeController::class);
 
 require __DIR__ . '/auth.php';
