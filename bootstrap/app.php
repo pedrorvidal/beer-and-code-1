@@ -15,6 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'checkToken' => TokenMiddleware::class,
         ]);
+
+        $middleware->validateCsrfTokens(except: [
+            'plano/*',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

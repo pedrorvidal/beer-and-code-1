@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\EmployeeAddressController;
-use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Middleware\TokenMiddleware;
+use Illuminate\Http\Middleware\TrustProxies;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,13 +19,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('employee', EmployeeController::class)
-    ->middleware(TokenMiddleware::class.':general-token');
+Route::resource('plano', PlanController::class)
+    ->withoutMiddleware([
+        TrustProxies::class,
 
-Route::get('userland', fn () => 'access granted')
-    ->middleware(TokenMiddleware::class.':simple-token');
-
-Route::resource('employee.address', EmployeeAddressController::class)
-    ->middleware(TokenMiddleware::class.':general-token');
+    ]);
 
 require __DIR__.'/auth.php';
