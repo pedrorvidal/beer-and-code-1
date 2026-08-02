@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Plan;
 use Illuminate\Http\Request;
 
 class PlanController extends Controller
@@ -12,6 +13,7 @@ class PlanController extends Controller
     public function index()
     {
         //
+        return Plan::all();
     }
 
     /**
@@ -33,9 +35,9 @@ class PlanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Plan $plan)
     {
-        //
+        return $plan;
     }
 
     /**

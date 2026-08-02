@@ -22,7 +22,10 @@ Route::middleware('auth')->group(function () {
 Route::resource('plano', PlanController::class)
     ->withoutMiddleware([
         TrustProxies::class,
-
-    ]);
+    ])
+    ->parameters([
+        'plano' => 'plan',
+    ])
+    ->missing(fn () => redirect()->route('plano.index'));
 
 require __DIR__.'/auth.php';
