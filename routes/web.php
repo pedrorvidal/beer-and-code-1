@@ -24,8 +24,9 @@ Route::resource('plano', PlanController::class)
         TrustProxies::class,
     ])
     ->parameters([
-        'plano' => 'plan',
-    ])
-    ->missing(fn () => redirect()->route('plano.index'));
+        'plano' => 'plan:cod',
+    ]);
+// lista todos caso não ache nenhum
+// ->missing(fn () => redirect()->route('plano.index'));
 
 require __DIR__.'/auth.php';

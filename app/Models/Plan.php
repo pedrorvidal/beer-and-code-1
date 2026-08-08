@@ -13,6 +13,7 @@ class Plan extends Model
         'name',
         'short_description',
         'price',
+        'cod',
     ];
 
     public function signatures()
